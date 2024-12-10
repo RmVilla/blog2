@@ -3,6 +3,9 @@ from .forms import PostForm
 from .models import Post
 from django.http import HttpResponse
 
+def home(request):
+    return HttpResponse("Welcome to the Blog!")
+
 def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -21,5 +24,3 @@ def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
 
-def home(request):
-    return HttpResponse("Welcome to the Blog!")

@@ -1,23 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Posts</title>
-</head>
-<body>
-    <h1>Blog Posts</h1>
-    {% for post in posts %}
-        <div>
-            <h2>{{ post.title }}</h2>
-            <p>{{ post.content }}</p>
+{% extends 'blog/base.html' %}
+
+{% block title %}Blog Posts{% endblock %}
+
+{% block content %}
+<h2>Blog Posts</h2>
+{% for post in posts %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h3 class="card-title">{{ post.title }}</h3>
+            <p class="card-text">{{ post.content|truncatechars:200 }}</p>
             {% if post.picture %}
-                <img src="{{ post.picture.url }}" alt="{{ post.title }}" style="max-width: 300px;">
-            {% else %}
-                <p>No image available</p>
+                <img src="{{ post.picture.url }}" alt="{{ post.title }}" class="img-fluid">
             {% endif %}
-            <p>Author: {{ post.author }}</p>
+            <p class="text-muted">By {{ post.author }} on {{ post.created_at }}</p>
+            <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read More</a>
         </div>
-    {% endfor %}
-</body>
-</html>
+    </div>
+{% endfor %}
+{% endblock %}
