@@ -117,6 +117,10 @@ LOGIN_REDIRECT_URL = '/'  # Redirects to the homepage after login
 LOGIN_URL = '/login/'  # URL of the login page
 LOGOUT_REDIRECT_URL = '/'  # Redirect to homepage after logout
 
+AUTH_USER_MODEL = 'blog.CustomUser'  # This is where your custom user model is defined
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

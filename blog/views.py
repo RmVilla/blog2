@@ -1,12 +1,25 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseForbidden
+from django.contrib.auth import login
 from django.urls import reverse
-from .forms import PostForm, PostUpdateForm
+from .forms import PostForm, PostUpdateForm, CustomUserCreationForm
 from .models import Post
 
 
 def home(request):
     return HttpResponse("Welcome to the Blog!")
+
+
+def register_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('post_list')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'blog/register.html', {'form': form})
 
 
 def post_create(request):
