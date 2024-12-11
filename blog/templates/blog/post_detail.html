@@ -3,12 +3,13 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-<h2>{{ post.title }}</h2>
-<p><strong>By:</strong> {{ post.author }}</p>
-<p><strong>Published:</strong> {{ post.created_at }}</p>
-{% if post.picture %}
-    <img src="{{ post.picture.url }}" alt="{{ post.title }}" class="img-fluid">
-{% endif %}
-<p>{{ post.content }}</p>
-<a href="{% url 'post_list' %}" class="btn btn-secondary">Back to Blog</a>
+    <h2>{{ post.title }}</h2>
+    <p><strong>By:</strong> {{ post.author }}</p>
+    <p><strong>Published:</strong> {{ post.created_at }}</p>
+    {% if post.picture %}
+        <img src="{{ post.picture.url }}" alt="{{ post.title }}" class="img-fluid">
+    {% endif %}
+    <p>{{ post.content }}</p>
+    <a href="{% url 'post_list' %}" class="btn btn-secondary">Back to Blog</a>
+    <a href="{% url 'update_post' post.pk %}" class="btn btn-success">Edit Blog</a>
 {% endblock %}

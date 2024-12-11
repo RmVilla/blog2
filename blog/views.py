@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from .forms import PostForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import PostForm, PostUpdateForm
 from .models import Post
 from django.http import HttpResponse
 
@@ -23,4 +23,18 @@ def post_list(request):
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
+
+def post_update(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        form = PostUpdateForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = PostUpdateForm(instance=post)
+    return render(request, 'blog/post_update.html', {'post': post, 'form': form})
+
+
 
