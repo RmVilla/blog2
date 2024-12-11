@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseForbidden
+from django.urls import reverse
 from .forms import PostForm, PostUpdateForm
 from .models import Post
-from django.http import HttpResponse
+
 
 def home(request):
     return HttpResponse("Welcome to the Blog!")
@@ -36,5 +38,14 @@ def post_update(request, pk):
         form = PostUpdateForm(instance=post)
     return render(request, 'blog/post_update.html', {'post': post, 'form': form})
 
+def delete_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
 
+    if request.user != post.author:
+        return HttpResponseForbidden("You are not allowed to delete this post.")
 
+    if request.method == 'POST':
+        post.delete()
+        return redirect('post_list')
+    
+    return render(request, 'blog/post_confirm_delete.html', {'post': post})

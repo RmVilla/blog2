@@ -12,4 +12,5 @@
     <p>{{ post.content }}</p>
     <a href="{% url 'post_list' %}" class="btn btn-secondary">Back to Blog</a>
     <a href="{% url 'update_post' post.pk %}" class="btn btn-success">Edit Blog</a>
+    <a href="{% url 'delete_post' post.pk %}" class="btn btn-danger">Delete Blog</a>
 {% endblock %}
