@@ -113,6 +113,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+LOGIN_REDIRECT_URL = '/'  # Redirects to the homepage after login
+LOGIN_URL = '/login/'  # URL of the login page
+LOGOUT_REDIRECT_URL = '/'  # Redirect to homepage after logout
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

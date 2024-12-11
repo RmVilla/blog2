@@ -8,6 +8,7 @@ from .models import Post
 def home(request):
     return HttpResponse("Welcome to the Blog!")
 
+
 def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -18,13 +19,16 @@ def post_create(request):
          form = PostForm()
     return render(request, 'blog/post_form.html', {'form': form})
 
+
 def post_list(request):
     posts = Post.objects.all().order_by('-created_at')
     return render(request, 'blog/post_list.html', {'posts': posts})
 
+
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
+
 
 def post_update(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -37,6 +41,7 @@ def post_update(request, pk):
     else:
         form = PostUpdateForm(instance=post)
     return render(request, 'blog/post_update.html', {'post': post, 'form': form})
+
 
 def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
