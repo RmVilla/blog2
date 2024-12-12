@@ -118,6 +118,7 @@ LOGIN_URL = '/login/'  # URL of the login page
 LOGOUT_REDIRECT_URL = '/'  # Redirect to homepage after logout
 
 AUTH_USER_MODEL = 'blog.CustomUser'  # This is where your custom user model is defined
+LOGIN_URL = 'login'
 
 
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth import login
-from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from .forms import PostForm, PostUpdateForm, CustomUserCreationForm
 from .models import Post
 
@@ -19,9 +19,10 @@ def register_view(request):
             return redirect('post_list')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'blog/register.html', {'form': form})
+    return render(request, 'Users/register.html', {'form': form})
 
 
+@login_required
 def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -43,6 +44,7 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post})
 
 
+@login_required
 def post_update(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
@@ -56,6 +58,7 @@ def post_update(request, pk):
     return render(request, 'blog/post_update.html', {'post': post, 'form': form})
 
 
+@login_required
 def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
@@ -67,3 +70,8 @@ def delete_post(request, pk):
         return redirect('post_list')
     
     return render(request, 'blog/post_confirm_delete.html', {'post': post})
+
+
+@login_required
+def profile(request):
+    return render(request, 'Users/profile.html')
